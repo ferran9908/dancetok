@@ -36,7 +36,8 @@ class ViewController: UIViewController, ARSessionDelegate, RPPreviewViewControll
     var screenRecorder = RPScreenRecorder.shared()
 
 
-
+    var songName: String?
+    var artistName: String?
 
 
     @IBOutlet var arView: ARView!
@@ -213,6 +214,14 @@ class ViewController: UIViewController, ARSessionDelegate, RPPreviewViewControll
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         arView.session.delegate = self
+        
+        if let song = songName, let artist = artistName {
+            print("Now playing \(song) by \(artist)")
+                  // Update the UI elements with song and artist information
+        }
+        else{
+            print("Cant fine song and artist")
+        }
         
         // If the iOS device doesn't support body tracking, raise a developer error for
         // this unhandled case.

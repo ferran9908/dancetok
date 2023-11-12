@@ -19,11 +19,13 @@ class MapViewController : UIViewController {
         return map
     }()
     
+    @IBOutlet weak var titanBattle: UIButton!
     let locationManager = CLLocationManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setMapConstraints()
+       // titanBattle.isHidden = true
         
         locationManager.delegate = self
            locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -53,8 +55,8 @@ class MapViewController : UIViewController {
     
     
     let locations = [
-        (title: "Stanford Uni", latitude: 37.42783889180251, longitude: -122.17006000328483),
-        (title: "Stanford Medical", latitude: 37.4335793391047, longitude: -122.17054284457107),
+        (title: "Stanford Uni", latitude: 37.42783889180251, longitude: -122.17006000328483, contest : "Water - Tyla"),
+        (title: "Stanford Medical", latitude: 37.4335793391047, longitude: -122.17054284457107,  contest : "Shape of you- Ed Sheeran"),
         // Add as many locations as you need
     ]
     func addMultipleAnnotations() {
@@ -67,6 +69,7 @@ class MapViewController : UIViewController {
         for location in locations {
             let annotation = MKPointAnnotation()
             annotation.title = location.title
+            annotation.subtitle = "Contest : \(location.contest)"
             annotation.coordinate = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
             mapView.addAnnotation(annotation)
         }
@@ -125,6 +128,10 @@ extension MapViewController: CLLocationManagerDelegate {
                 let loc =  CLLocation(latitude: marker.latitude, longitude: marker.longitude)
                 let distanceInMeters = currentLocation.distance(from: loc)
                 print("The distance to the marker is \(distanceInMeters) meters.")
+                if(distanceInMeters <= 50)
+                {
+                    
+                }
                 // Here, you can do something with the distance, like updating the UI
             }
         }

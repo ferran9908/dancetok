@@ -8,17 +8,17 @@
 
 /* Begin PBXBuildFile section */
 		0C8C7868228387D2006A6EE1 /* character in Resources */ = {isa = PBXBuildFile; fileRef = 0C8C7867228387D2006A6EE1 /* character */; };
-		259DF69B2B0118D0006FF782 /* Dua Lipa - Levitating (Fixed Version).mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 259DF6952B0118D0006FF782 /* Dua Lipa - Levitating (Fixed Version).mp3 */; };
-		259DF69C2B0118D0006FF782 /* Ariana Grande - Side To Side Ft. Nicki Minaj (Remix).mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 259DF6962B0118D0006FF782 /* Ariana Grande - Side To Side Ft. Nicki Minaj (Remix).mp3 */; };
-		259DF69D2B0118D0006FF782 /* Kenya Grace - Strangers.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 259DF6972B0118D0006FF782 /* Kenya Grace - Strangers.mp3 */; };
-		259DF69E2B0118D0006FF782 /* Taylor Swift - Blank Space.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 259DF6982B0118D0006FF782 /* Taylor Swift - Blank Space.mp3 */; };
-		259DF69F2B0118D0006FF782 /* Dua Lipa - Dance The Night (From Barbie The Album) [Official Music Video].mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 259DF6992B0118D0006FF782 /* Dua Lipa - Dance The Night (From Barbie The Album) [Official Music Video].mp3 */; };
-		259DF6A02B0118D0006FF782 /* Fifty Fifty - Cupid.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 259DF69A2B0118D0006FF782 /* Fifty Fifty - Cupid.mp3 */; };
 		2F60E1DB22631E0F00357E98 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F60E1DA22631E0F00357E98 /* AppDelegate.swift */; };
 		2F60E1DD22631E0F00357E98 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F60E1DC22631E0F00357E98 /* ViewController.swift */; };
 		2F60E1E422631E0F00357E98 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2F60E1E322631E0F00357E98 /* Assets.xcassets */; };
 		2F60E1E722631E0F00357E98 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F60E1E522631E0F00357E98 /* LaunchScreen.storyboard */; };
 		53A616F92B00BDD900E23BBA /* Tyla_-_Water.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 53A616F82B00BDD900E23BBA /* Tyla_-_Water.mp3 */; };
+		53FDDB502B0120E6007F94DF /* Ariana Grande - Side To Side Ft. Nicki Minaj (Remix).mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 53FDDB4A2B0120E6007F94DF /* Ariana Grande - Side To Side Ft. Nicki Minaj (Remix).mp3 */; };
+		53FDDB512B0120E6007F94DF /* Taylor Swift - Blank Space.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 53FDDB4B2B0120E6007F94DF /* Taylor Swift - Blank Space.mp3 */; };
+		53FDDB522B0120E6007F94DF /* Dua Lipa - Levitating (Fixed Version).mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 53FDDB4C2B0120E6007F94DF /* Dua Lipa - Levitating (Fixed Version).mp3 */; };
+		53FDDB532B0120E6007F94DF /* Fifty Fifty - Cupid.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 53FDDB4D2B0120E6007F94DF /* Fifty Fifty - Cupid.mp3 */; };
+		53FDDB542B0120E6007F94DF /* Dua Lipa - Dance The Night (From Barbie The Album) [Official Music Video].mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 53FDDB4E2B0120E6007F94DF /* Dua Lipa - Dance The Night (From Barbie The Album) [Official Music Video].mp3 */; };
+		53FDDB552B0120E6007F94DF /* Kenya Grace - Strangers.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 53FDDB4F2B0120E6007F94DF /* Kenya Grace - Strangers.mp3 */; };
 		627D123E2B001E2E00863BD2 /* DashBoardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 627D123D2B001E2E00863BD2 /* DashBoardController.swift */; };
 		627D123F2B0023E600863BD2 /* DashBoard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 627D12412B0023E600863BD2 /* DashBoard.storyboard */; };
 		627D12432B00246900863BD2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 627D12442B00246900863BD2 /* Main.storyboard */; };
@@ -37,12 +37,6 @@
 
 /* Begin PBXFileReference section */
 		0C8C7867228387D2006A6EE1 /* character */ = {isa = PBXFileReference; lastKnownFileType = folder; path = character; sourceTree = "<group>"; };
-		259DF6952B0118D0006FF782 /* Dua Lipa - Levitating (Fixed Version).mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "Dua Lipa - Levitating (Fixed Version).mp3"; path = "../../../Dua Lipa - Levitating (Fixed Version).mp3"; sourceTree = "<group>"; };
-		259DF6962B0118D0006FF782 /* Ariana Grande - Side To Side Ft. Nicki Minaj (Remix).mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "Ariana Grande - Side To Side Ft. Nicki Minaj (Remix).mp3"; path = "../../../Ariana Grande - Side To Side Ft. Nicki Minaj (Remix).mp3"; sourceTree = "<group>"; };
-		259DF6972B0118D0006FF782 /* Kenya Grace - Strangers.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "Kenya Grace - Strangers.mp3"; path = "../../../Kenya Grace - Strangers.mp3"; sourceTree = "<group>"; };
-		259DF6982B0118D0006FF782 /* Taylor Swift - Blank Space.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "Taylor Swift - Blank Space.mp3"; path = "../../../Taylor Swift - Blank Space.mp3"; sourceTree = "<group>"; };
-		259DF6992B0118D0006FF782 /* Dua Lipa - Dance The Night (From Barbie The Album) [Official Music Video].mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "Dua Lipa - Dance The Night (From Barbie The Album) [Official Music Video].mp3"; path = "../../../Dua Lipa - Dance The Night (From Barbie The Album) [Official Music Video].mp3"; sourceTree = "<group>"; };
-		259DF69A2B0118D0006FF782 /* Fifty Fifty - Cupid.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "Fifty Fifty - Cupid.mp3"; path = "../../../Fifty Fifty - Cupid.mp3"; sourceTree = "<group>"; };
 		2F60E1D822631E0E00357E98 /* BodyDetection.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BodyDetection.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F60E1DA22631E0F00357E98 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2F60E1DC22631E0F00357E98 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -50,6 +44,12 @@
 		2F60E1E622631E0F00357E98 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2F60E1EB22631E0F00357E98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		53A616F82B00BDD900E23BBA /* Tyla_-_Water.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Tyla_-_Water.mp3"; sourceTree = "<group>"; };
+		53FDDB4A2B0120E6007F94DF /* Ariana Grande - Side To Side Ft. Nicki Minaj (Remix).mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Ariana Grande - Side To Side Ft. Nicki Minaj (Remix).mp3"; sourceTree = "<group>"; };
+		53FDDB4B2B0120E6007F94DF /* Taylor Swift - Blank Space.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Taylor Swift - Blank Space.mp3"; sourceTree = "<group>"; };
+		53FDDB4C2B0120E6007F94DF /* Dua Lipa - Levitating (Fixed Version).mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Dua Lipa - Levitating (Fixed Version).mp3"; sourceTree = "<group>"; };
+		53FDDB4D2B0120E6007F94DF /* Fifty Fifty - Cupid.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Fifty Fifty - Cupid.mp3"; sourceTree = "<group>"; };
+		53FDDB4E2B0120E6007F94DF /* Dua Lipa - Dance The Night (From Barbie The Album) [Official Music Video].mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Dua Lipa - Dance The Night (From Barbie The Album) [Official Music Video].mp3"; sourceTree = "<group>"; };
+		53FDDB4F2B0120E6007F94DF /* Kenya Grace - Strangers.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Kenya Grace - Strangers.mp3"; sourceTree = "<group>"; };
 		5DCA879A14A3351D9E9CEA98 /* SampleCode.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = SampleCode.xcconfig; path = Configuration/SampleCode.xcconfig; sourceTree = "<group>"; };
 		627D123D2B001E2E00863BD2 /* DashBoardController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashBoardController.swift; sourceTree = "<group>"; };
 		627D12402B0023E600863BD2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/DashBoard.storyboard; sourceTree = "<group>"; };
@@ -111,12 +111,12 @@
 		2F60E1D922631E0F00357E98 /* BodyDetection */ = {
 			isa = PBXGroup;
 			children = (
-				259DF6962B0118D0006FF782 /* Ariana Grande - Side To Side Ft. Nicki Minaj (Remix).mp3 */,
-				259DF6992B0118D0006FF782 /* Dua Lipa - Dance The Night (From Barbie The Album) [Official Music Video].mp3 */,
-				259DF6952B0118D0006FF782 /* Dua Lipa - Levitating (Fixed Version).mp3 */,
-				259DF69A2B0118D0006FF782 /* Fifty Fifty - Cupid.mp3 */,
-				259DF6972B0118D0006FF782 /* Kenya Grace - Strangers.mp3 */,
-				259DF6982B0118D0006FF782 /* Taylor Swift - Blank Space.mp3 */,
+				53FDDB4A2B0120E6007F94DF /* Ariana Grande - Side To Side Ft. Nicki Minaj (Remix).mp3 */,
+				53FDDB4E2B0120E6007F94DF /* Dua Lipa - Dance The Night (From Barbie The Album) [Official Music Video].mp3 */,
+				53FDDB4C2B0120E6007F94DF /* Dua Lipa - Levitating (Fixed Version).mp3 */,
+				53FDDB4D2B0120E6007F94DF /* Fifty Fifty - Cupid.mp3 */,
+				53FDDB4F2B0120E6007F94DF /* Kenya Grace - Strangers.mp3 */,
+				53FDDB4B2B0120E6007F94DF /* Taylor Swift - Blank Space.mp3 */,
 				627D12552B00B31B00863BD2 /* ProfileTableViewCell.swift */,
 				627D12592B0107CB00863BD2 /* SongsTableViewCell.swift */,
 				627D124E2B00642E00863BD2 /* dancea.mp4 */,
@@ -208,19 +208,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				627D124F2B00642F00863BD2 /* danceb.mp4 in Resources */,
-				259DF69D2B0118D0006FF782 /* Kenya Grace - Strangers.mp3 in Resources */,
+				53FDDB512B0120E6007F94DF /* Taylor Swift - Blank Space.mp3 in Resources */,
 				0C8C7868228387D2006A6EE1 /* character in Resources */,
 				2F60E1E722631E0F00357E98 /* LaunchScreen.storyboard in Resources */,
 				53A616F92B00BDD900E23BBA /* Tyla_-_Water.mp3 in Resources */,
-				259DF69C2B0118D0006FF782 /* Ariana Grande - Side To Side Ft. Nicki Minaj (Remix).mp3 in Resources */,
-				259DF69B2B0118D0006FF782 /* Dua Lipa - Levitating (Fixed Version).mp3 in Resources */,
+				53FDDB502B0120E6007F94DF /* Ariana Grande - Side To Side Ft. Nicki Minaj (Remix).mp3 in Resources */,
+				53FDDB532B0120E6007F94DF /* Fifty Fifty - Cupid.mp3 in Resources */,
+				53FDDB552B0120E6007F94DF /* Kenya Grace - Strangers.mp3 in Resources */,
+				53FDDB522B0120E6007F94DF /* Dua Lipa - Levitating (Fixed Version).mp3 in Resources */,
 				718E55BC2289F8FF00A9B13B /* README.md in Resources */,
+				53FDDB542B0120E6007F94DF /* Dua Lipa - Dance The Night (From Barbie The Album) [Official Music Video].mp3 in Resources */,
 				2F60E1E422631E0F00357E98 /* Assets.xcassets in Resources */,
-				259DF69F2B0118D0006FF782 /* Dua Lipa - Dance The Night (From Barbie The Album) [Official Music Video].mp3 in Resources */,
 				627D12502B00642F00863BD2 /* dancea.mp4 in Resources */,
 				627D12432B00246900863BD2 /* Main.storyboard in Resources */,
-				259DF6A02B0118D0006FF782 /* Fifty Fifty - Cupid.mp3 in Resources */,
-				259DF69E2B0118D0006FF782 /* Taylor Swift - Blank Space.mp3 in Resources */,
 				627D123F2B0023E600863BD2 /* DashBoard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

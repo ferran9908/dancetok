@@ -76,6 +76,12 @@ extension MainBoardController : VideoCollectionViewCellDelegate {
     
     func didTapDanceButton(with model: VideoModel) {
         print("Dance clicked")
+        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+        //let mainViewController = storyBoard.instantiateViewController(withIdentifier: "MainBoardController") as! MainBoardController
+        let mainViewController = storyBoard.instantiateViewController(withIdentifier: "ARView")
+        mainViewController.modalPresentationStyle = .fullScreen
+        self.present(mainViewController, animated: true)
+    
     }
     
     

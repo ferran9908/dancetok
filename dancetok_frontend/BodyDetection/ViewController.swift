@@ -71,6 +71,9 @@ class ViewController: UIViewController, ARSessionDelegate, RPPreviewViewControll
     var captureSession: AVCaptureSession?
     
     var screenRecorder = RPScreenRecorder.shared()
+    
+    var isCreator: Bool = false
+    var isChallenger: Bool = false
 
 
     var songName: String?
@@ -91,7 +94,13 @@ class ViewController: UIViewController, ARSessionDelegate, RPPreviewViewControll
   
     @IBAction func computeScore(_ sender: Any) {
 //        compareLastTwoRecordings()
-        selectVideo()
+//        selectVideo()
+        if(isCreator) {
+            selectVideo()
+        }
+        else {
+            self.fetchS3Url(from: "https://8a6a-68-65-175-125.ngrok-free.app/get-pose-data/1")
+        }
         
     }
     @IBAction func recordButtonTapped(_ sender: Any) {
@@ -192,6 +201,7 @@ class ViewController: UIViewController, ARSessionDelegate, RPPreviewViewControll
                 
             }
             task.resume()
+            self.dismiss(animated: true, completion: nil)
             
         }
     }
@@ -392,9 +402,11 @@ class ViewController: UIViewController, ARSessionDelegate, RPPreviewViewControll
             // Step 3: Deserialize the Content
             if let poseFrames = self.deserializePoseFrames(from: content) {
                         // Store the deserialized data into retrievedRecordings
-                        DispatchQueue.main.async {
+                DispatchQueue.main.async { [self] in
                             self.retrievedRecordings.append(poseFrames)
                             print("Successfully deserialized and stored PoseFrames. Count: \(self.retrievedRecordings.count ?? 0)")
+                            comparePoses(recording1: currentRecording, recording2: retrievedRecordings[0], sampleRate: 10)
+                            
                         }
                     } else {
                         print("Failed to deserialize PoseFrames.")
@@ -426,6 +438,7 @@ class ViewController: UIViewController, ARSessionDelegate, RPPreviewViewControll
             }
         }
         task.resume()
+        
     }
     
     
@@ -455,6 +468,19 @@ class ViewController: UIViewController, ARSessionDelegate, RPPreviewViewControll
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         arView.session.delegate = self
+        
+        print("isCreator: ", self.isCreator)
+        print("isChallenger: ", self.isChallenger)
+        
+        if(self.isCreator){
+            checkScore.setTitle( "Submit!", for: .normal)
+        }
+        else
+        {
+            checkScore.setTitle( "Score!", for: .normal)
+        }
+        
+        
         
         if let song = songName, let artist = artistName {
             print("Now playing \(song) by \(artist)")

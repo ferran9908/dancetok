@@ -17,12 +17,49 @@ import Photos
 import ReplayKit
 import AVKit
 
+import simd
 
-struct PoseFrame {
+
+struct PoseFrame: Codable {
     var timestamp: TimeInterval
     var bodyPosition: SIMD3<Float>
     var bodyRotation: simd_quatf
     var jointPositions: [String: SIMD3<Float>] // Keyed by joint name
+
+    enum CodingKeys: String, CodingKey {
+        case timestamp
+        case bodyPosition
+        case bodyRotation
+        case jointPositions
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        timestamp = try container.decode(TimeInterval.self, forKey: .timestamp)
+        let bodyPositionArray = try container.decode([Float].self, forKey: .bodyPosition)
+        bodyPosition = SIMD3<Float>(bodyPositionArray[0], bodyPositionArray[1], bodyPositionArray[2])
+
+        let bodyRotationArray = try container.decode([Float].self, forKey: .bodyRotation)
+        bodyRotation = simd_quatf(ix: bodyRotationArray[0], iy: bodyRotationArray[1], iz: bodyRotationArray[2], r: bodyRotationArray[3])
+
+        let jointPositionsDictionary = try container.decode([String: [Float]].self, forKey: .jointPositions)
+        jointPositions = jointPositionsDictionary.mapValues { SIMD3<Float>($0[0], $0[1], $0[2]) }
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(timestamp, forKey: .timestamp)
+        try container.encode([bodyPosition.x, bodyPosition.y, bodyPosition.z], forKey: .bodyPosition)
+        try container.encode([bodyRotation.vector.x, bodyRotation.vector.y, bodyRotation.vector.z, bodyRotation.vector.w], forKey: .bodyRotation)
+        let jointPositionsArray = jointPositions.mapValues { [$0.x, $0.y, $0.z] }
+        try container.encode(jointPositionsArray, forKey: .jointPositions)
+    }
+    init(timestamp: TimeInterval, bodyPosition: SIMD3<Float>, bodyRotation: simd_quatf, jointPositions: [String: SIMD3<Float>]) {
+          self.timestamp = timestamp
+          self.bodyPosition = bodyPosition
+          self.bodyRotation = bodyRotation
+          self.jointPositions = jointPositions
+      }
 }
 
 
@@ -81,6 +118,86 @@ class ViewController: UIViewController, ARSessionDelegate, RPPreviewViewControll
             }
         }
     
+    func serializeRecording() -> String? {
+        let encoder = JSONEncoder()
+        do {
+            let jsonData = try encoder.encode(currentRecording)
+            return String(data: jsonData, encoding: .utf8)
+        } catch {
+            print("Error encoding data: \(error)")
+            return nil
+        }
+    }
+    
+    func saveRecordingToFile() -> URL? {
+        guard let recordingText = serializeRecording() else { return nil }
+
+        let fileManager = FileManager.default
+        let tempDirectory = fileManager.temporaryDirectory
+        let fileName = UUID().uuidString + ".txt"
+        let fileURL = tempDirectory.appendingPathComponent(fileName)
+
+        do {
+            try recordingText.write(to: fileURL, atomically: true, encoding: .utf8)
+            return fileURL
+        } catch {
+            print("Error writing file: \(error)")
+            return nil
+        }
+    }
+    
+    func uploadPoseData() {
+        guard let fileURL = saveRecordingToFile() else {
+            print("Could not save recording to file")
+            return
+        }
+
+        // ... Set up the URLRequest and URLSession as before ...
+        // Then append the text file data to the body of the request
+        
+        let boundary = "Boundary-\(UUID().uuidString)"
+        var request = URLRequest(url: URL(string: "https://8a6a-68-65-175-125.ngrok-free.app/put-pose-data")!)
+        request.httpMethod = "POST"
+        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+
+        var body = Data()
+
+
+        let textData = try? Data(contentsOf: fileURL)
+        body.append("--\(boundary)\r\n".data(using: .utf8)!)
+        body.append("Content-Disposition: form-data; name=\"pose_data\"; filename=\"\(fileURL.lastPathComponent)\"\r\n".data(using: .utf8)!)
+        body.append("Content-Type: text/plain\r\n\r\n".data(using: .utf8)!)
+        body.append(textData!)
+        body.append("\r\n".data(using: .utf8)!)
+
+        // Close the body with the boundary and send the request as before
+        // Send the request
+        body.append("--\(boundary)--\r\n".data(using: .utf8)!)
+
+        request.httpBody = body
+        
+        DispatchQueue.global().async {
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    print("Error: \(error)")
+                    return
+                }
+
+                DispatchQueue.main.async {
+                                // Update UI here (e.g., show a toast, update a label, etc.)
+                    self.showToast(message: "Uploaded Pose")
+                            }
+                
+                
+            }
+            task.resume()
+            
+        }
+    }
+
+
+
+    
 
 
     
@@ -110,6 +227,7 @@ class ViewController: UIViewController, ARSessionDelegate, RPPreviewViewControll
                 self?.showToast(message: "Starting Recording")
             }
         }
+
     }
 
 
@@ -127,6 +245,8 @@ class ViewController: UIViewController, ARSessionDelegate, RPPreviewViewControll
                     
                     self?.audioPlayer?.stop()
                     self?.present(previewController, animated: true, completion: nil)
+                    
+                    
                     // Handle the preview here and upload the video
                 }
             }
@@ -195,17 +315,37 @@ class ViewController: UIViewController, ARSessionDelegate, RPPreviewViewControll
 
         request.httpBody = body
 
+        DispatchQueue.global().async {
+                let task = URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
+                    if let error = error {
+                        print("Error: \(error)")
+                        return
+                    }
+
+                    // Handle the response here (still in the background thread)
+
+                    // If you need to update the UI, switch back to the main thread
+                    DispatchQueue.main.async {
+                        // Update UI here (e.g., show a toast, update a label, etc.)
+                        self?.showToast(message: "Uploaded Video")
+                        self?.uploadPoseData() // Call the next API (can be done in the background)
+                    }
+                }
         // Send the request
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            if let error = error {
-                print("Error: \(error)")
-                return
-            }
+//        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+//            if let error = error {
+//                print("Error: \(error)")
+//                return
+//            }
 
             // Handle the response here
             
+            task.resume()
+           
+            
         }
-        task.resume()
+        
+        
     }
 
 

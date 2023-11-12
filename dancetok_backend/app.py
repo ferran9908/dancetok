@@ -218,6 +218,7 @@ def put_video():
 @login_required
 @app.route("/put-pose-data", methods=["POST"])
 def put_pose_data():
+    user_id = 1
     if "pose_data" not in request.files:
         return jsonify({"error": "No pose data file provided"}), 400
 
@@ -226,9 +227,9 @@ def put_pose_data():
         return jsonify({"error": "No pose data file provided"}), 400
 
     filename = secure_filename(file.filename)
-    s3_url = upload_file_to_s3(file, S3_BUCKET, current_user.id, filename)
+    s3_url = upload_file_to_s3(file, S3_BUCKET, user_id, filename)
     if s3_url:
-        video = Video.query.filter_by(user_id=current_user.id).first()
+        video = Video.query.filter_by(user_id=user_id).first()
         if video:
             video.pose_data_url = s3_url
             db.session.commit()

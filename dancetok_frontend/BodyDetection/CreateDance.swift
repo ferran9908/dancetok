@@ -24,8 +24,8 @@ class CreateDanceController : UIViewController, UITableViewDataSource, UITableVi
 
     }
     
-    var firstLabel = ["Side to Side", "Dance the Night" , "Levitating", "Fifty Fifty", "Strangers", "Blank Space"]
-    var secondLabel =  ["Ariana", "Dua", "Dua", "Cupid", "Kenya", "Taylor"]
+    var firstLabel = ["Side to Side", "Dance the Night" , "Levitating", "Cupid", "Strangers", "Blank Space"]
+    var secondLabel =  ["Ariana", "Dua", "Dua", "Fifty Fifty", "Kenya", "Taylor"]
 
     
     @IBAction func moveToAR(_ sender: Any) {

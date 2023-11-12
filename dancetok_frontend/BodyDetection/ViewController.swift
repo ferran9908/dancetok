@@ -86,27 +86,32 @@ class ViewController: UIViewController, ARSessionDelegate, RPPreviewViewControll
     
     func startRecording() {
         guard screenRecorder.isAvailable else {
-               print("Screen recording is not available")
-               return
-           }
+            print("Screen recording is not available")
+            return
+        }
 
-           screenRecorder.startRecording { [weak self] (error) in
-               guard error == nil else {
-                   print("There was an error starting the recording.")
-                   return
-               }
+        screenRecorder.startRecording { [weak self] (error) in
+            guard error == nil else {
+                print("There was an error starting the recording.")
+                return
+            }
 
-               // Play the audio file
-               self?.playAudioFile()
+            // Play the selected audio file (if songName is available)
+            if let song = self?.songName {
+                self?.playSelectedSong(songTitle: song)
+            }
+ else {
+                print("No song selected. Please select a song to play.")
+                // You can handle this case as needed, e.g., play a default song or show an error message.
+            }
 
-               DispatchQueue.main.async {
-                   self?.isRecording = true
-                   self?.showToast(message: "Starting Recording")
-               }
-           }
-//        isRecording = true
-//        showToast(message: "Starting Recording")
+            DispatchQueue.main.async {
+                self?.isRecording = true
+                self?.showToast(message: "Starting Recording")
+            }
+        }
     }
+
 
     
     @objc func stopRecording() {
@@ -217,7 +222,7 @@ class ViewController: UIViewController, ARSessionDelegate, RPPreviewViewControll
         
         if let song = songName, let artist = artistName {
             print("Now playing \(song) by \(artist)")
-                  // Update the UI elements with song and artist information
+//            playSelectedSong(songTitle: song)// Update the UI elements with song and artist information
         }
         else{
             print("Cant fine song and artist")
@@ -254,6 +259,32 @@ class ViewController: UIViewController, ARSessionDelegate, RPPreviewViewControll
             }
         })
     }
+    
+    let songToFileMap: [String: String] = [
+        "Levitating": "Dua Lipa - Levitating (Fixed Version).mp3",
+        "Side To Side": "Ariana Grande - Side To Side Ft. Nicki Minaj (Remix).mp3",
+        "Cupid": "Fifty Fifty - Cupid.mp3",
+        "Dance The Night": "Dua Lipa - Dance The Night (From Barbie The Album) [Official Music Video].mp3",
+        "Strangers": "Kenya Grace - Strangers.mp3",
+        "Blank Space": "Taylor Swift - Blank Space.mp3"
+    ]
+
+    private func playSelectedSong(songTitle: String) {
+        guard let fileName = songToFileMap[songTitle],
+              let audioUrl = Bundle.main.url(forResource: fileName, withExtension: nil) else {
+            print("Audio file for \(songTitle) not found")
+            return
+        }
+
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOf: audioUrl)
+            audioPlayer?.play()
+        } catch {
+            print("Couldn't play the audio file for \(songTitle).")
+        }
+    }
+
+
     
     func session(_ session: ARSession, didUpdate anchors: [ARAnchor]) {
         if let currentFrame = session.currentFrame {

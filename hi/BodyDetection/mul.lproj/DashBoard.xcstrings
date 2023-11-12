@@ -1,0 +1,186 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "4Ba-Qf-T8D.text" : {
+      "comment" : "Class = \"UITextField\"; text = \"Profile\"; ObjectID = \"4Ba-Qf-T8D\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Profile"
+          }
+        }
+      }
+    },
+    "99L-JX-s6i.title" : {
+      "comment" : "Class = \"UITabBarItem\"; title = \"Dance\"; ObjectID = \"99L-JX-s6i\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Dance"
+          }
+        }
+      }
+    },
+    "a94-bn-5dp.configuration.title" : {
+      "comment" : "Class = \"UIButton\"; configuration.title = \"Login\"; ObjectID = \"a94-bn-5dp\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Login"
+          }
+        }
+      }
+    },
+    "a94-bn-5dp.normalTitle" : {
+      "comment" : "Class = \"UIButton\"; normalTitle = \"Button\"; ObjectID = \"a94-bn-5dp\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Button"
+          }
+        }
+      }
+    },
+    "ajZ-dT-2bR.text" : {
+      "comment" : "Class = \"UITextField\"; text = \"Browse\"; ObjectID = \"ajZ-dT-2bR\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Browse"
+          }
+        }
+      }
+    },
+    "BJY-7d-IVm.title" : {
+      "comment" : "Class = \"UITabBarItem\"; title = \"Browse\"; ObjectID = \"BJY-7d-IVm\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Browse"
+          }
+        }
+      }
+    },
+    "DgM-4I-FUK.text" : {
+      "comment" : "Class = \"UITextField\"; text = \"Dance\"; ObjectID = \"DgM-4I-FUK\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Dance"
+          }
+        }
+      }
+    },
+    "JKY-AK-HMH.placeholder" : {
+      "comment" : "Class = \"UITextField\"; placeholder = \"Username\"; ObjectID = \"JKY-AK-HMH\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Username"
+          }
+        }
+      }
+    },
+    "kB1-cS-CZv.accessibilityLabel" : {
+      "comment" : "Class = \"UILabel\"; accessibilityLabel = \"heha\"; ObjectID = \"kB1-cS-CZv\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "heha"
+          }
+        }
+      }
+    },
+    "kB1-cS-CZv.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"DanceTok\"; ObjectID = \"kB1-cS-CZv\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "DanceTok"
+          }
+        }
+      }
+    },
+    "PcT-BN-Tam.title" : {
+      "comment" : "Class = \"UIViewController\"; title = \"MainBoardController\"; ObjectID = \"PcT-BN-Tam\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "MainBoardController"
+          }
+        }
+      }
+    },
+    "Uhd-yp-LP3.title" : {
+      "comment" : "Class = \"UITabBarItem\"; title = \"Profile\"; ObjectID = \"Uhd-yp-LP3\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Profile"
+          }
+        }
+      }
+    },
+    "vld-1g-ze0.title" : {
+      "comment" : "Class = \"UIViewController\"; title = \"CreateDanceController\"; ObjectID = \"vld-1g-ze0\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "CreateDanceController"
+          }
+        }
+      }
+    },
+    "Wfi-Wr-Cih.placeholder" : {
+      "comment" : "Class = \"UITextField\"; placeholder = \"Password\"; ObjectID = \"Wfi-Wr-Cih\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Password"
+          }
+        }
+      }
+    },
+    "XB6-br-jrd.title" : {
+      "comment" : "Class = \"UIViewController\"; title = \"ProfileController\"; ObjectID = \"XB6-br-jrd\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "ProfileController"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

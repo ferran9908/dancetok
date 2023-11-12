@@ -84,6 +84,8 @@ class ViewController: UIViewController, ARSessionDelegate, RPPreviewViewControll
     
     var currentRecording: [PoseFrame] = []
     var recordings: [[PoseFrame]] = []
+    var retrievedRecordings: [[PoseFrame]] = []
+
     
     @IBOutlet weak var checkScore: UIButton!
   
@@ -188,7 +190,6 @@ class ViewController: UIViewController, ARSessionDelegate, RPPreviewViewControll
                     self.showToast(message: "Uploaded Pose")
                             }
                 
-                
             }
             task.resume()
             
@@ -245,13 +246,13 @@ class ViewController: UIViewController, ARSessionDelegate, RPPreviewViewControll
                     
                     self?.audioPlayer?.stop()
                     self?.present(previewController, animated: true, completion: nil)
+                    self?.fetchS3Url(from: "https://8a6a-68-65-175-125.ngrok-free.app/get-pose-data/1")
                     
                     
-                    // Handle the preview here and upload the video
+
                 }
             }
-//        isRecording = false
-//        showToast(message: "Recording Stopped")
+
     }
     
     func previewControllerDidFinish(_ previewController: RPPreviewViewController) {
@@ -331,14 +332,6 @@ class ViewController: UIViewController, ARSessionDelegate, RPPreviewViewControll
                         self?.uploadPoseData() // Call the next API (can be done in the background)
                     }
                 }
-        // Send the request
-//        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-//            if let error = error {
-//                print("Error: \(error)")
-//                return
-//            }
-
-            // Handle the response here
             
             task.resume()
            
@@ -347,6 +340,108 @@ class ViewController: UIViewController, ARSessionDelegate, RPPreviewViewControll
         
         
     }
+    
+    func downloadFile(from s3Url: URL, completion: @escaping (Data?) -> Void) {
+        let task = URLSession.shared.dataTask(with: s3Url) { data, response, error in
+            guard let data = data, error == nil else {
+                print("Error downloading file: \(error?.localizedDescription ?? "Unknown error")")
+                completion(nil)
+                return
+            }
+            completion(data)
+        }
+        task.resume()
+    }
+
+    
+    func deserializeRecording(from text: String) -> [PoseFrame]? {
+        let decoder = JSONDecoder()
+        if let data = text.data(using: .utf8) {
+            do {
+                let recording = try decoder.decode([PoseFrame].self, from: data)
+                return recording
+            } catch {
+                print("Error decoding data: \(error)")
+                return nil
+            }
+        }
+        return nil
+    }
+
+    func deserializePoseFrames(from text: String) -> [PoseFrame]? {
+        let decoder = JSONDecoder()
+        if let data = text.data(using: .utf8) {
+            do {
+                let poseFrames = try decoder.decode([PoseFrame].self, from: data)
+                return poseFrames
+            } catch {
+                print("Error decoding data: \(error)")
+                return nil
+            }
+        }
+        return nil
+    }
+    
+    func downloadAndDeserializePoseFrames(from s3Url: URL) {
+        downloadFile(from: s3Url) { data in
+            guard let data = data, let content = String(data: data, encoding: .utf8) else {
+                print("Failed to convert data to string.")
+                return
+            }
+
+            // Step 3: Deserialize the Content
+            if let poseFrames = self.deserializePoseFrames(from: content) {
+                        // Store the deserialized data into retrievedRecordings
+                        DispatchQueue.main.async {
+                            self.retrievedRecordings.append(poseFrames)
+                            print("Successfully deserialized and stored PoseFrames. Count: \(self.retrievedRecordings.count ?? 0)")
+                        }
+                    } else {
+                        print("Failed to deserialize PoseFrames.")
+                    }
+        }
+    }
+    
+    func fetchS3Url(from apiUrl: String) {
+        guard let url = URL(string: apiUrl) else {
+            print("Invalid URL")
+            return
+        }
+
+        let task = URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
+            guard let data = data, error == nil else {
+                print("Network request failed: \(error?.localizedDescription ?? "Unknown error")")
+                return
+            }
+
+            do {
+                if let jsonObject = try JSONSerialization.jsonObject(with: data) as? [String: String],
+                   let s3UrlString = jsonObject["pose_data_url"] {
+                    self?.handleS3Url(s3UrlString)
+                } else {
+                    print("JSON parsing failed or 'pose_data_url' key not found")
+                }
+            } catch {
+                print("Failed to decode JSON: \(error.localizedDescription)")
+            }
+        }
+        task.resume()
+    }
+    
+    
+
+
+
+    func handleS3Url(_ urlString: String) {
+        if let s3Url = URL(string: urlString) {
+            downloadAndDeserializePoseFrames(from: s3Url)
+        } else {
+            print("Invalid S3 URL")
+        }
+    }
+
+
+
 
 
 
@@ -569,6 +664,8 @@ class ViewController: UIViewController, ARSessionDelegate, RPPreviewViewControll
         showToast(message: "score: \(similarityScore)")
         print("Similarity score between the last two recordings: \(similarityScore)")
     }
+    
+    
 
 
 

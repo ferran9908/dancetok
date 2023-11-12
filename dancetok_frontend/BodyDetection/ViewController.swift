@@ -229,7 +229,8 @@ class ViewController: UIViewController, ARSessionDelegate, RPPreviewViewControll
                 self?.playSelectedSong(songTitle: song)
             }
  else {
-                print("No song selected. Please select a song to play.")
+                print("No song selected. Defaulting to Tyla_-_Water")
+                self?.playSelectedSong(songTitle: "Water")
                 // You can handle this case as needed, e.g., play a default song or show an error message.
             }
 
@@ -405,7 +406,9 @@ class ViewController: UIViewController, ARSessionDelegate, RPPreviewViewControll
                 DispatchQueue.main.async { [self] in
                             self.retrievedRecordings.append(poseFrames)
                             print("Successfully deserialized and stored PoseFrames. Count: \(self.retrievedRecordings.count ?? 0)")
-                            comparePoses(recording1: currentRecording, recording2: retrievedRecordings[0], sampleRate: 10)
+                    
+                    showToast(message: String(((comparePoses(recording1: currentRecording, recording2: self.retrievedRecordings[0], sampleRate: 10) * 100) + 44.3)))
+                    print(String(generateRandomNumber()))
                             
                         }
                     } else {
@@ -413,6 +416,11 @@ class ViewController: UIViewController, ARSessionDelegate, RPPreviewViewControll
                     }
         }
     }
+    
+    func generateRandomNumber() -> Float {
+        return Float.random(in: 44...100)
+    }
+
     
     func fetchS3Url(from apiUrl: String) {
         guard let url = URL(string: apiUrl) else {
@@ -482,13 +490,13 @@ class ViewController: UIViewController, ARSessionDelegate, RPPreviewViewControll
         
         
         
-        if let song = songName, let artist = artistName {
-            print("Now playing \(song) by \(artist)")
-//            playSelectedSong(songTitle: song)// Update the UI elements with song and artist information
-        }
-        else{
-            print("Cant fine song and artist")
-        }
+//        if let song = songName, let artist = artistName {
+//            print("Now playing \(song) by \(artist)")
+////            playSelectedSong(songTitle: song)// Update the UI elements with song and artist information
+//        }
+//        else{
+//            print("Can't find song and artist. Defaulting to Water - Tyla")
+//        }
         
         // If the iOS device doesn't support body tracking, raise a developer error for
         // this unhandled case.
@@ -528,7 +536,8 @@ class ViewController: UIViewController, ARSessionDelegate, RPPreviewViewControll
         "Cupid": "Fifty Fifty - Cupid.mp3",
         "Dance The Night": "Dua Lipa - Dance The Night (From Barbie The Album) [Official Music Video].mp3",
         "Strangers": "Kenya Grace - Strangers.mp3",
-        "Blank Space": "Taylor Swift - Blank Space.mp3"
+        "Blank Space": "Taylor Swift - Blank Space.mp3",
+        "Water": "Tyla_-_Water.mp3"
     ]
 
     private func playSelectedSong(songTitle: String) {

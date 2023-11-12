@@ -26,6 +26,10 @@
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>DashBoard</string>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>We need your location to provide turn-by-turn navigation directions.</string>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>We need your location to send you timely alerts about events in your area.</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
@@ -46,5 +50,10 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+    <key>NSAppTransportSecurity</key>
+    <dict>
+        <key>NSAllowsArbitraryLoads</key>
+        <true/>
+    </dict>
 </dict>
 </plist>

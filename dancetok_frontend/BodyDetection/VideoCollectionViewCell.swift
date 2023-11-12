@@ -13,7 +13,6 @@ protocol VideoCollectionViewCellDelegate : AnyObject {
     func didTapLikeButton(with model : VideoModel)
     func didTapCommentButton(with model : VideoModel)
     func didTapDanceButton(with model : VideoModel)
-    
 }
 
 class VideoCollectionViewCell: UICollectionViewCell {
@@ -25,39 +24,48 @@ class VideoCollectionViewCell: UICollectionViewCell {
     private let usernameLabel : UILabel = {
        let label = UILabel()
         label.textAlignment = .left
-        label.textColor = .label
+        label.textColor = .white
+        label.backgroundColor = UIColor.black.withAlphaComponent(0.1)
+        label.font = UIFont.boldSystemFont(ofSize: 17)
         return label
     }()
     
     private let captionLabel : UILabel = {
        let label = UILabel()
         label.textAlignment = .left
-        label.textColor = .label
+        label.textColor = .white
+        label.backgroundColor = UIColor.black.withAlphaComponent(0.1)
+        label.font = UIFont.boldSystemFont(ofSize: 14)
         return label
     }()
     
     private let audioLabel : UILabel = {
        let label = UILabel()
         label.textAlignment = .left
-        label.textColor = .label
+        label.textColor = .white
+        label.backgroundColor = UIColor.black.withAlphaComponent(0.1)
+        label.font = UIFont.boldSystemFont(ofSize: 14)
         return label
     }()
     
     //Button
     private let likeButton : UIButton = {
         let button = UIButton()
-        button.setBackgroundImage(UIImage(systemName: "heart.fill"), for: .normal)
+        button.tintColor = UIColor.black
+        button.setBackgroundImage(UIImage(systemName: "heart"), for: .normal)
         return button
     }()
     
     private let danceButton : UIButton = {
         let button = UIButton()
-        button.setBackgroundImage(UIImage(systemName: "heart.fill"), for: .normal)
+        button.tintColor = UIColor.black
+        button.setBackgroundImage(UIImage(systemName: "figure.dance"), for: .normal)
         return button
     }()
     
     private let commentButton : UIButton = {
         let button = UIButton()
+        button.tintColor = UIColor.black
         button.setBackgroundImage(UIImage(systemName: "text.bubble.fill"), for: .normal)
         return button
     }()
@@ -92,6 +100,7 @@ class VideoCollectionViewCell: UICollectionViewCell {
         
         videoContainer.clipsToBounds = true
         contentView.sendSubviewToBack(videoContainer)
+        
     }
     
     @objc private func didTapLikeButton(){
@@ -122,17 +131,16 @@ class VideoCollectionViewCell: UICollectionViewCell {
         //Buttons
         videoContainer.frame = contentView.bounds
         
-        let size = contentView.frame.size.width / 10
+        let size = contentView.frame.size.width / 12
         let width = contentView.frame.size.width
         let height = contentView.frame.size.height - 120
-        likeButton.frame = CGRect(x : width - size, y : height - size, width : size, height : size)
-        commentButton.frame = CGRect(x : width - size, y : height - (size * 2) - 10, width : size, height : size)
-        danceButton.frame = CGRect(x : width - size, y : height - (size * 3) - 10, width : size, height : size)
+        danceButton.frame = CGRect(x : width - size - 10, y : height - size, width : size, height : size)
+        commentButton.frame = CGRect(x : width - size  - 10, y : height - (size * 2) - 20 , width : size, height : size)
+        likeButton.frame = CGRect(x : width - size  - 10, y : height - (size * 3) - 40, width : size, height : size)
         
-        audioLabel.frame = CGRect(x : 5 , y : height - 40, width : width - size - 10, height : 50)
-        audioLabel.tintColor = .black
-        usernameLabel.frame = CGRect(x : 5 , y : height - 80, width : width - size - 10, height : 50)
-        captionLabel.frame = CGRect(x : 5 , y : height - 60, width : width - size - 10, height : 50)
+        audioLabel.frame = CGRect(x : 12 , y : height - 40, width : width/2, height : 50)
+        usernameLabel.frame = CGRect(x : 10, y : height - 100, width : width/2, height : 50)
+        captionLabel.frame = CGRect(x : 12 , y : height - 70, width : width/2, height : 50)
     }
     
     required init?(coder: NSCoder) {
@@ -144,19 +152,19 @@ class VideoCollectionViewCell: UICollectionViewCell {
         self.model = model
         configureVideo()
             
-            captionLabel.text = model.caption
-            usernameLabel.text = model.username
+        captionLabel.text = model.caption
+        usernameLabel.text = model.username
         audioLabel.text = model.audioTrack
       
     }
     
                                 
     override func prepareForReuse() {
-            super.prepareForReuse()
+        super.prepareForReuse()
         captionLabel.text = nil
         audioLabel.text = nil
         usernameLabel.text = nil
-        }
+    }
                                 
     private func configureVideo()
     {
@@ -167,7 +175,8 @@ class VideoCollectionViewCell: UICollectionViewCell {
         else{
             return
         }
-       player = AVPlayer(url: URL(fileURLWithPath: path))
+        player = AVPlayer(url: URL(fileURLWithPath: path))
+        //player = AVPlayer(url: URL(string: "https://samplelib.com/lib/preview/mp4/sample-5s.mp4")!)
         let playerview = AVPlayerLayer()
         playerview.player = player
         playerview.frame = contentView.bounds

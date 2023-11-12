@@ -22,6 +22,8 @@
 		627D124F2B00642F00863BD2 /* danceb.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 627D124D2B00642E00863BD2 /* danceb.mp4 */; };
 		627D12502B00642F00863BD2 /* dancea.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 627D124E2B00642E00863BD2 /* dancea.mp4 */; };
 		627D12542B00676600863BD2 /* VideoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 627D12532B00676600863BD2 /* VideoCollectionViewCell.swift */; };
+		627D12562B00B31B00863BD2 /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 627D12552B00B31B00863BD2 /* ProfileTableViewCell.swift */; };
+		627D12582B00DD8600863BD2 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 627D12572B00DD8600863BD2 /* MapViewController.swift */; };
 		718E55BC2289F8FF00A9B13B /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 718E55BB2289F8FF00A9B13B /* README.md */; };
 /* End PBXBuildFile section */
 
@@ -45,6 +47,8 @@
 		627D124D2B00642E00863BD2 /* danceb.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = danceb.mp4; sourceTree = "<group>"; };
 		627D124E2B00642E00863BD2 /* dancea.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = dancea.mp4; sourceTree = "<group>"; };
 		627D12532B00676600863BD2 /* VideoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCollectionViewCell.swift; sourceTree = "<group>"; };
+		627D12552B00B31B00863BD2 /* ProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewCell.swift; sourceTree = "<group>"; };
+		627D12572B00DD8600863BD2 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		718E55BB2289F8FF00A9B13B /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		78F4E054153DD3A4202C28BA /* LICENSE.txt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -91,6 +95,7 @@
 		2F60E1D922631E0F00357E98 /* BodyDetection */ = {
 			isa = PBXGroup;
 			children = (
+				627D12552B00B31B00863BD2 /* ProfileTableViewCell.swift */,
 				627D124E2B00642E00863BD2 /* dancea.mp4 */,
 				627D124D2B00642E00863BD2 /* danceb.mp4 */,
 				627D12492B00503D00863BD2 /* ProfileController.swift */,
@@ -99,6 +104,7 @@
 				0C8C7867228387D2006A6EE1 /* character */,
 				627D12442B00246900863BD2 /* Main.storyboard */,
 				627D12412B0023E600863BD2 /* DashBoard.storyboard */,
+				627D12572B00DD8600863BD2 /* MapViewController.swift */,
 				2F60E1E322631E0F00357E98 /* Assets.xcassets */,
 				2F60E1E522631E0F00357E98 /* LaunchScreen.storyboard */,
 				2F60E1EB22631E0F00357E98 /* Info.plist */,
@@ -198,6 +204,8 @@
 				627D124A2B00503D00863BD2 /* ProfileController.swift in Sources */,
 				627D123E2B001E2E00863BD2 /* DashBoardController.swift in Sources */,
 				627D12482B0043E800863BD2 /* MainBoardController.swift in Sources */,
+				627D12582B00DD8600863BD2 /* MapViewController.swift in Sources */,
+				627D12562B00B31B00863BD2 /* ProfileTableViewCell.swift in Sources */,
 				627D124C2B00516500863BD2 /* CreateDance.swift in Sources */,
 				627D12462B003D5F00863BD2 /* Toast.swift in Sources */,
 				2F60E1DD22631E0F00357E98 /* ViewController.swift in Sources */,

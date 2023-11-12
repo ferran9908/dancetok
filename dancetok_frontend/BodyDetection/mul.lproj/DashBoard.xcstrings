@@ -13,6 +13,42 @@
         }
       }
     },
+    "7Wi-9s-H3P.title" : {
+      "comment" : "Class = \"UITabBarItem\"; title = \"Geo\"; ObjectID = \"7Wi-9s-H3P\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Geo"
+          }
+        }
+      }
+    },
+    "9qW-bp-hUE.configuration.title" : {
+      "comment" : "Class = \"UIButton\"; configuration.title = \"My Steps\"; ObjectID = \"9qW-bp-hUE\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "My Steps"
+          }
+        }
+      }
+    },
+    "9qW-bp-hUE.normalTitle" : {
+      "comment" : "Class = \"UIButton\"; normalTitle = \"Button\"; ObjectID = \"9qW-bp-hUE\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Button"
+          }
+        }
+      }
+    },
     "99L-JX-s6i.title" : {
       "comment" : "Class = \"UITabBarItem\"; title = \"Dance\"; ObjectID = \"99L-JX-s6i\";",
       "extractionState" : "extracted_with_value",
@@ -85,6 +121,42 @@
         }
       }
     },
+    "fEe-Gq-GZK.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"Titan\"; ObjectID = \"fEe-Gq-GZK\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Titan"
+          }
+        }
+      }
+    },
+    "IyS-Ad-Rgh.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"2\"; ObjectID = \"IyS-Ad-Rgh\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "2"
+          }
+        }
+      }
+    },
+    "J9K-hN-FfJ.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"@kewalkishang\"; ObjectID = \"J9K-hN-FfJ\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "@kewalkishang"
+          }
+        }
+      }
+    },
     "JKY-AK-HMH.placeholder" : {
       "comment" : "Class = \"UITextField\"; placeholder = \"Username\"; ObjectID = \"JKY-AK-HMH\";",
       "extractionState" : "extracted_with_value",
@@ -93,6 +165,18 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Username"
+          }
+        }
+      }
+    },
+    "JN1-4o-1PF.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"3\"; ObjectID = \"JN1-4o-1PF\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "3"
           }
         }
       }
@@ -121,6 +205,30 @@
         }
       }
     },
+    "m68-TV-ohh.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"3\"; ObjectID = \"m68-TV-ohh\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "3"
+          }
+        }
+      }
+    },
+    "mmX-m5-ryY.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"Label\"; ObjectID = \"mmX-m5-ryY\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Label"
+          }
+        }
+      }
+    },
     "PcT-BN-Tam.title" : {
       "comment" : "Class = \"UIViewController\"; title = \"MainBoardController\"; ObjectID = \"PcT-BN-Tam\";",
       "extractionState" : "extracted_with_value",
@@ -133,6 +241,30 @@
         }
       }
     },
+    "rMM-d8-knC.configuration.title" : {
+      "comment" : "Class = \"UIButton\"; configuration.title = \"Compete\"; ObjectID = \"rMM-d8-knC\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Compete"
+          }
+        }
+      }
+    },
+    "rMM-d8-knC.normalTitle" : {
+      "comment" : "Class = \"UIButton\"; normalTitle = \"Button\"; ObjectID = \"rMM-d8-knC\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Button"
+          }
+        }
+      }
+    },
     "Uhd-yp-LP3.title" : {
       "comment" : "Class = \"UITabBarItem\"; title = \"Profile\"; ObjectID = \"Uhd-yp-LP3\";",
       "extractionState" : "extracted_with_value",
@@ -141,6 +273,18 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Profile"
+          }
+        }
+      }
+    },
+    "unT-sU-Nyb.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"Label\"; ObjectID = \"unT-sU-Nyb\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Label"
           }
         }
       }
@@ -177,6 +321,42 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "ProfileController"
+          }
+        }
+      }
+    },
+    "xRn-5A-4Vq.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"Following\"; ObjectID = \"xRn-5A-4Vq\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Following"
+          }
+        }
+      }
+    },
+    "xtP-of-93K.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"Label\"; ObjectID = \"xtP-of-93K\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Label"
+          }
+        }
+      }
+    },
+    "YUQ-Yv-31G.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"Followers\"; ObjectID = \"YUQ-Yv-31G\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Followers"
           }
         }
       }

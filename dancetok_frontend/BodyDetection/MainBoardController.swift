@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-
+//AIzaSyClNNpbQKgmlLQhUyDCLooHArRNH79peNw
 struct VideoModel {
     let caption : String
     let username : String
@@ -28,7 +28,7 @@ class MainBoardController : UIViewController {
         super.viewDidLoad()
         
         for _ in 0..<10 {
-            let model = VideoModel(caption: "Dacing my heart out", username: "Kewal", audioTrack: "Kinni Kinni", videoFileName: "dancea",  videoFileFormat:  "mp4")
+            let model = VideoModel(caption: "# Dancing my heart out", username: "@Kewal", audioTrack: "Song: Kinni Kinni", videoFileName: "dancea",  videoFileFormat:  "mp4")
             data.append(model)
         }
         

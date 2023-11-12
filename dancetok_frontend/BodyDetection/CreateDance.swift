@@ -78,6 +78,8 @@ class CreateDanceController : UIViewController, UITableViewDataSource, UITableVi
                 mainViewController.songName = song
                 mainViewController.artistName = artist
                 mainViewController.modalPresentationStyle = .fullScreen
+                mainViewController.isCreator = true
+                mainViewController.isChallenger = false
                 self.present(mainViewController, animated: true)
             } else {
                 print("Failed to instantiate ARViewController.")

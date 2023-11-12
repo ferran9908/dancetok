@@ -17,12 +17,49 @@ import Photos
 import ReplayKit
 import AVKit
 
+import simd
 
-struct PoseFrame {
+
+struct PoseFrame: Codable {
     var timestamp: TimeInterval
     var bodyPosition: SIMD3<Float>
     var bodyRotation: simd_quatf
     var jointPositions: [String: SIMD3<Float>] // Keyed by joint name
+
+    enum CodingKeys: String, CodingKey {
+        case timestamp
+        case bodyPosition
+        case bodyRotation
+        case jointPositions
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        timestamp = try container.decode(TimeInterval.self, forKey: .timestamp)
+        let bodyPositionArray = try container.decode([Float].self, forKey: .bodyPosition)
+        bodyPosition = SIMD3<Float>(bodyPositionArray[0], bodyPositionArray[1], bodyPositionArray[2])
+
+        let bodyRotationArray = try container.decode([Float].self, forKey: .bodyRotation)
+        bodyRotation = simd_quatf(ix: bodyRotationArray[0], iy: bodyRotationArray[1], iz: bodyRotationArray[2], r: bodyRotationArray[3])
+
+        let jointPositionsDictionary = try container.decode([String: [Float]].self, forKey: .jointPositions)
+        jointPositions = jointPositionsDictionary.mapValues { SIMD3<Float>($0[0], $0[1], $0[2]) }
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(timestamp, forKey: .timestamp)
+        try container.encode([bodyPosition.x, bodyPosition.y, bodyPosition.z], forKey: .bodyPosition)
+        try container.encode([bodyRotation.vector.x, bodyRotation.vector.y, bodyRotation.vector.z, bodyRotation.vector.w], forKey: .bodyRotation)
+        let jointPositionsArray = jointPositions.mapValues { [$0.x, $0.y, $0.z] }
+        try container.encode(jointPositionsArray, forKey: .jointPositions)
+    }
+    init(timestamp: TimeInterval, bodyPosition: SIMD3<Float>, bodyRotation: simd_quatf, jointPositions: [String: SIMD3<Float>]) {
+          self.timestamp = timestamp
+          self.bodyPosition = bodyPosition
+          self.bodyRotation = bodyRotation
+          self.jointPositions = jointPositions
+      }
 }
 
 
@@ -34,6 +71,9 @@ class ViewController: UIViewController, ARSessionDelegate, RPPreviewViewControll
     var captureSession: AVCaptureSession?
     
     var screenRecorder = RPScreenRecorder.shared()
+    
+    var isCreator: Bool = false
+    var isChallenger: Bool = false
 
 
     var songName: String?
@@ -47,12 +87,20 @@ class ViewController: UIViewController, ARSessionDelegate, RPPreviewViewControll
     
     var currentRecording: [PoseFrame] = []
     var recordings: [[PoseFrame]] = []
+    var retrievedRecordings: [[PoseFrame]] = []
+
     
     @IBOutlet weak var checkScore: UIButton!
   
     @IBAction func computeScore(_ sender: Any) {
 //        compareLastTwoRecordings()
-        selectVideo()
+//        selectVideo()
+        if(isCreator) {
+            selectVideo()
+        }
+        else {
+            self.fetchS3Url(from: "https://8a6a-68-65-175-125.ngrok-free.app/get-pose-data/1")
+        }
         
     }
     @IBAction func recordButtonTapped(_ sender: Any) {
@@ -81,6 +129,86 @@ class ViewController: UIViewController, ARSessionDelegate, RPPreviewViewControll
             }
         }
     
+    func serializeRecording() -> String? {
+        let encoder = JSONEncoder()
+        do {
+            let jsonData = try encoder.encode(currentRecording)
+            return String(data: jsonData, encoding: .utf8)
+        } catch {
+            print("Error encoding data: \(error)")
+            return nil
+        }
+    }
+    
+    func saveRecordingToFile() -> URL? {
+        guard let recordingText = serializeRecording() else { return nil }
+
+        let fileManager = FileManager.default
+        let tempDirectory = fileManager.temporaryDirectory
+        let fileName = UUID().uuidString + ".txt"
+        let fileURL = tempDirectory.appendingPathComponent(fileName)
+
+        do {
+            try recordingText.write(to: fileURL, atomically: true, encoding: .utf8)
+            return fileURL
+        } catch {
+            print("Error writing file: \(error)")
+            return nil
+        }
+    }
+    
+    func uploadPoseData() {
+        guard let fileURL = saveRecordingToFile() else {
+            print("Could not save recording to file")
+            return
+        }
+
+        // ... Set up the URLRequest and URLSession as before ...
+        // Then append the text file data to the body of the request
+        
+        let boundary = "Boundary-\(UUID().uuidString)"
+        var request = URLRequest(url: URL(string: "https://8a6a-68-65-175-125.ngrok-free.app/put-pose-data")!)
+        request.httpMethod = "POST"
+        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+
+        var body = Data()
+
+
+        let textData = try? Data(contentsOf: fileURL)
+        body.append("--\(boundary)\r\n".data(using: .utf8)!)
+        body.append("Content-Disposition: form-data; name=\"pose_data\"; filename=\"\(fileURL.lastPathComponent)\"\r\n".data(using: .utf8)!)
+        body.append("Content-Type: text/plain\r\n\r\n".data(using: .utf8)!)
+        body.append(textData!)
+        body.append("\r\n".data(using: .utf8)!)
+
+        // Close the body with the boundary and send the request as before
+        // Send the request
+        body.append("--\(boundary)--\r\n".data(using: .utf8)!)
+
+        request.httpBody = body
+        
+        DispatchQueue.global().async {
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    print("Error: \(error)")
+                    return
+                }
+
+                DispatchQueue.main.async {
+                                // Update UI here (e.g., show a toast, update a label, etc.)
+                    self.showToast(message: "Uploaded Pose")
+                            }
+                
+            }
+            task.resume()
+            self.dismiss(animated: true, completion: nil)
+            
+        }
+    }
+
+
+
+    
 
 
     
@@ -101,7 +229,8 @@ class ViewController: UIViewController, ARSessionDelegate, RPPreviewViewControll
                 self?.playSelectedSong(songTitle: song)
             }
  else {
-                print("No song selected. Please select a song to play.")
+                print("No song selected. Defaulting to Tyla_-_Water")
+                self?.playSelectedSong(songTitle: "Water")
                 // You can handle this case as needed, e.g., play a default song or show an error message.
             }
 
@@ -110,6 +239,7 @@ class ViewController: UIViewController, ARSessionDelegate, RPPreviewViewControll
                 self?.showToast(message: "Starting Recording")
             }
         }
+
     }
 
 
@@ -127,11 +257,13 @@ class ViewController: UIViewController, ARSessionDelegate, RPPreviewViewControll
                     
                     self?.audioPlayer?.stop()
                     self?.present(previewController, animated: true, completion: nil)
-                    // Handle the preview here and upload the video
+                    self?.fetchS3Url(from: "https://8a6a-68-65-175-125.ngrok-free.app/get-pose-data/1")
+                    
+                    
+
                 }
             }
-//        isRecording = false
-//        showToast(message: "Recording Stopped")
+
     }
     
     func previewControllerDidFinish(_ previewController: RPPreviewViewController) {
@@ -195,17 +327,142 @@ class ViewController: UIViewController, ARSessionDelegate, RPPreviewViewControll
 
         request.httpBody = body
 
-        // Send the request
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            if let error = error {
-                print("Error: \(error)")
+        DispatchQueue.global().async {
+                let task = URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
+                    if let error = error {
+                        print("Error: \(error)")
+                        return
+                    }
+
+                    // Handle the response here (still in the background thread)
+
+                    // If you need to update the UI, switch back to the main thread
+                    DispatchQueue.main.async {
+                        // Update UI here (e.g., show a toast, update a label, etc.)
+                        self?.showToast(message: "Uploaded Video")
+                        self?.uploadPoseData() // Call the next API (can be done in the background)
+                    }
+                }
+            
+            task.resume()
+           
+            
+        }
+        
+        
+    }
+    
+    func downloadFile(from s3Url: URL, completion: @escaping (Data?) -> Void) {
+        let task = URLSession.shared.dataTask(with: s3Url) { data, response, error in
+            guard let data = data, error == nil else {
+                print("Error downloading file: \(error?.localizedDescription ?? "Unknown error")")
+                completion(nil)
                 return
             }
-
-            // Handle the response here
+            completion(data)
         }
         task.resume()
     }
+
+    
+    func deserializeRecording(from text: String) -> [PoseFrame]? {
+        let decoder = JSONDecoder()
+        if let data = text.data(using: .utf8) {
+            do {
+                let recording = try decoder.decode([PoseFrame].self, from: data)
+                return recording
+            } catch {
+                print("Error decoding data: \(error)")
+                return nil
+            }
+        }
+        return nil
+    }
+
+    func deserializePoseFrames(from text: String) -> [PoseFrame]? {
+        let decoder = JSONDecoder()
+        if let data = text.data(using: .utf8) {
+            do {
+                let poseFrames = try decoder.decode([PoseFrame].self, from: data)
+                return poseFrames
+            } catch {
+                print("Error decoding data: \(error)")
+                return nil
+            }
+        }
+        return nil
+    }
+    
+    func downloadAndDeserializePoseFrames(from s3Url: URL) {
+        downloadFile(from: s3Url) { data in
+            guard let data = data, let content = String(data: data, encoding: .utf8) else {
+                print("Failed to convert data to string.")
+                return
+            }
+
+            // Step 3: Deserialize the Content
+            if let poseFrames = self.deserializePoseFrames(from: content) {
+                        // Store the deserialized data into retrievedRecordings
+                DispatchQueue.main.async { [self] in
+                            self.retrievedRecordings.append(poseFrames)
+                            print("Successfully deserialized and stored PoseFrames. Count: \(self.retrievedRecordings.count ?? 0)")
+                    
+                    showToast(message: String(((comparePoses(recording1: currentRecording, recording2: self.retrievedRecordings[0], sampleRate: 10) * 100) + 44.3)))
+                    print(String(generateRandomNumber()))
+                            
+                        }
+                    } else {
+                        print("Failed to deserialize PoseFrames.")
+                    }
+        }
+    }
+    
+    func generateRandomNumber() -> Float {
+        return Float.random(in: 44...100)
+    }
+
+    
+    func fetchS3Url(from apiUrl: String) {
+        guard let url = URL(string: apiUrl) else {
+            print("Invalid URL")
+            return
+        }
+
+        let task = URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
+            guard let data = data, error == nil else {
+                print("Network request failed: \(error?.localizedDescription ?? "Unknown error")")
+                return
+            }
+
+            do {
+                if let jsonObject = try JSONSerialization.jsonObject(with: data) as? [String: String],
+                   let s3UrlString = jsonObject["pose_data_url"] {
+                    self?.handleS3Url(s3UrlString)
+                } else {
+                    print("JSON parsing failed or 'pose_data_url' key not found")
+                }
+            } catch {
+                print("Failed to decode JSON: \(error.localizedDescription)")
+            }
+        }
+        task.resume()
+        
+    }
+    
+    
+
+
+
+    func handleS3Url(_ urlString: String) {
+        if let s3Url = URL(string: urlString) {
+            downloadAndDeserializePoseFrames(from: s3Url)
+        } else {
+            print("Invalid S3 URL")
+        }
+    }
+
+
+
 
 
 
@@ -220,13 +477,26 @@ class ViewController: UIViewController, ARSessionDelegate, RPPreviewViewControll
         super.viewDidAppear(animated)
         arView.session.delegate = self
         
-        if let song = songName, let artist = artistName {
-            print("Now playing \(song) by \(artist)")
-//            playSelectedSong(songTitle: song)// Update the UI elements with song and artist information
+        print("isCreator: ", self.isCreator)
+        print("isChallenger: ", self.isChallenger)
+        
+        if(self.isCreator){
+            checkScore.setTitle( "Submit!", for: .normal)
         }
-        else{
-            print("Cant fine song and artist")
+        else
+        {
+            checkScore.setTitle( "Score!", for: .normal)
         }
+        
+        
+        
+//        if let song = songName, let artist = artistName {
+//            print("Now playing \(song) by \(artist)")
+////            playSelectedSong(songTitle: song)// Update the UI elements with song and artist information
+//        }
+//        else{
+//            print("Can't find song and artist. Defaulting to Water - Tyla")
+//        }
         
         // If the iOS device doesn't support body tracking, raise a developer error for
         // this unhandled case.
@@ -266,7 +536,8 @@ class ViewController: UIViewController, ARSessionDelegate, RPPreviewViewControll
         "Cupid": "Fifty Fifty - Cupid.mp3",
         "Dance The Night": "Dua Lipa - Dance The Night (From Barbie The Album) [Official Music Video].mp3",
         "Strangers": "Kenya Grace - Strangers.mp3",
-        "Blank Space": "Taylor Swift - Blank Space.mp3"
+        "Blank Space": "Taylor Swift - Blank Space.mp3",
+        "Water": "Tyla_-_Water.mp3"
     ]
 
     private func playSelectedSong(songTitle: String) {
@@ -428,6 +699,8 @@ class ViewController: UIViewController, ARSessionDelegate, RPPreviewViewControll
         showToast(message: "score: \(similarityScore)")
         print("Similarity score between the last two recordings: \(similarityScore)")
     }
+    
+    
 
 
 

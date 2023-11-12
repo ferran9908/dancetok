@@ -8,9 +8,25 @@
 
 import Foundation
 import UIKit
-class CreateDanceController : UIViewController {    
+
+
+
+class CreateDanceController : UIViewController {
+    @IBOutlet weak var SongUiTableView: UITableView!
+    @IBOutlet weak var recordButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+
     }
+    
+    @IBAction func moveToAR(_ sender: Any) {
+        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+        //let mainViewController = storyBoard.instantiateViewController(withIdentifier: "MainBoardController") as! MainBoardController
+        let mainViewController = storyBoard.instantiateViewController(withIdentifier: "ARView")
+        mainViewController.modalPresentationStyle = .fullScreen
+        self.present(mainViewController, animated: true)
+    }
+   
     
 }

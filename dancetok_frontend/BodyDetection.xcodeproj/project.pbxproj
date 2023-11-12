@@ -12,6 +12,7 @@
 		2F60E1DD22631E0F00357E98 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F60E1DC22631E0F00357E98 /* ViewController.swift */; };
 		2F60E1E422631E0F00357E98 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2F60E1E322631E0F00357E98 /* Assets.xcassets */; };
 		2F60E1E722631E0F00357E98 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F60E1E522631E0F00357E98 /* LaunchScreen.storyboard */; };
+		53A616F92B00BDD900E23BBA /* Tyla_-_Water.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 53A616F82B00BDD900E23BBA /* Tyla_-_Water.mp3 */; };
 		627D123E2B001E2E00863BD2 /* DashBoardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 627D123D2B001E2E00863BD2 /* DashBoardController.swift */; };
 		627D123F2B0023E600863BD2 /* DashBoard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 627D12412B0023E600863BD2 /* DashBoard.storyboard */; };
 		627D12432B00246900863BD2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 627D12442B00246900863BD2 /* Main.storyboard */; };
@@ -33,6 +34,7 @@
 		2F60E1E322631E0F00357E98 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2F60E1E622631E0F00357E98 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2F60E1EB22631E0F00357E98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		53A616F82B00BDD900E23BBA /* Tyla_-_Water.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Tyla_-_Water.mp3"; sourceTree = "<group>"; };
 		5DCA879A14A3351D9E9CEA98 /* SampleCode.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = SampleCode.xcconfig; path = Configuration/SampleCode.xcconfig; sourceTree = "<group>"; };
 		627D123D2B001E2E00863BD2 /* DashBoardController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashBoardController.swift; sourceTree = "<group>"; };
 		627D12402B0023E600863BD2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/DashBoard.storyboard; sourceTree = "<group>"; };
@@ -92,6 +94,7 @@
 			isa = PBXGroup;
 			children = (
 				627D124E2B00642E00863BD2 /* dancea.mp4 */,
+				53A616F82B00BDD900E23BBA /* Tyla_-_Water.mp3 */,
 				627D124D2B00642E00863BD2 /* danceb.mp4 */,
 				627D12492B00503D00863BD2 /* ProfileController.swift */,
 				2F60E1DA22631E0F00357E98 /* AppDelegate.swift */,
@@ -180,6 +183,7 @@
 				627D124F2B00642F00863BD2 /* danceb.mp4 in Resources */,
 				0C8C7868228387D2006A6EE1 /* character in Resources */,
 				2F60E1E722631E0F00357E98 /* LaunchScreen.storyboard in Resources */,
+				53A616F92B00BDD900E23BBA /* Tyla_-_Water.mp3 in Resources */,
 				718E55BC2289F8FF00A9B13B /* README.md in Resources */,
 				2F60E1E422631E0F00357E98 /* Assets.xcassets in Resources */,
 				627D12502B00642F00863BD2 /* dancea.mp4 in Resources */,
@@ -356,7 +360,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = J6MY473DC7;
 				ENABLE_RCPROJECT_COMPILATION = YES;
 				ENABLE_USDZ_COMPILATION = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/BodyDetection/Info.plist";
@@ -381,7 +385,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = J6MY473DC7;
 				ENABLE_RCPROJECT_COMPILATION = YES;
 				ENABLE_USDZ_COMPILATION = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/BodyDetection/Info.plist";

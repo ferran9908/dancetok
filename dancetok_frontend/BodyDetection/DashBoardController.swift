@@ -35,7 +35,7 @@ class DashBoardController : UIViewController {
         }
         
         print("Button was tapped \(String(describing: username.text))  \(String(describing: password.text))");
-        if(password.text == "admin" && username.text == "admin")
+        if(password.text == "" && username.text == "")
         {
             let storyBoard : UIStoryboard = UIStoryboard(name: "DashBoard", bundle:nil)
             //let mainViewController = storyBoard.instantiateViewController(withIdentifier: "MainBoardController") as! MainBoardController

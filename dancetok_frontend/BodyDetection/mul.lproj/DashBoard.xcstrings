@@ -85,6 +85,30 @@
         }
       }
     },
+    "DJg-84-h8u.configuration.title" : {
+      "comment" : "Class = \"UIButton\"; configuration.title = \"Button\"; ObjectID = \"DJg-84-h8u\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Button"
+          }
+        }
+      }
+    },
+    "DJg-84-h8u.normalTitle" : {
+      "comment" : "Class = \"UIButton\"; normalTitle = \"Button\"; ObjectID = \"DJg-84-h8u\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Button"
+          }
+        }
+      }
+    },
     "JKY-AK-HMH.placeholder" : {
       "comment" : "Class = \"UITextField\"; placeholder = \"Username\"; ObjectID = \"JKY-AK-HMH\";",
       "extractionState" : "extracted_with_value",

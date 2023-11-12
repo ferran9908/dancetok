@@ -187,10 +187,12 @@ def top_scores():
 @login_required
 @app.route("/put-video", methods=["POST"])
 def put_video():
+    user_id = 1
     if "video" not in request.files:
         return jsonify({"error": "No video file provided"}), 400
 
     file = request.files["video"]
+
     if file.filename == "":
         return jsonify({"error": "No video file provided"}), 400
 
@@ -198,15 +200,19 @@ def put_video():
         return jsonify({"error": "Failed to upload pose data"}), 500
 
     filename = secure_filename(file.filename)
-    print(filename)
-    s3_url = upload_file_to_s3(file, S3_BUCKET, current_user.id, filename)
+
+    # Assuming upload_file_to_s3 is a function you've defined to upload files to S3
+    s3_url = upload_file_to_s3(file, S3_BUCKET, user_id, filename)
+
     if s3_url:
-        video = Video(user_id=current_user.id, s3_file_url=s3_url, pose_data_url="")
+        # Assuming Video is a model you've defined
+        video = Video(user_id=user_id, s3_file_url=s3_url, pose_data_url="")
         db.session.add(video)
         db.session.commit()
         return jsonify({"message": "Video uploaded successfully", "url": s3_url})
     else:
         return jsonify({"error": "Failed to upload video"}), 500
+
 
 
 @login_required

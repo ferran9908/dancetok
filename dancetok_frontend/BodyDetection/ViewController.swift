@@ -197,6 +197,7 @@ class ViewController: UIViewController, ARSessionDelegate, RPPreviewViewControll
             }
 
             // Handle the response here
+            
         }
         task.resume()
     }

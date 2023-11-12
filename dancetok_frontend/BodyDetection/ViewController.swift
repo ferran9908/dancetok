@@ -32,6 +32,9 @@ class ViewController: UIViewController, ARSessionDelegate {
     
     var audioPlayer: AVAudioPlayer?
     var captureSession: AVCaptureSession?
+    
+    var screenRecorder = RPScreenRecorder.shared()
+
 
 
 
@@ -79,15 +82,62 @@ class ViewController: UIViewController, ARSessionDelegate {
 
     
     func startRecording() {
-        isRecording = true
-        showToast(message: "Starting Recording")
+        guard screenRecorder.isAvailable else {
+               print("Screen recording is not available")
+               return
+           }
+
+           screenRecorder.startRecording { [weak self] (error) in
+               guard error == nil else {
+                   print("There was an error starting the recording.")
+                   return
+               }
+
+               // Play the audio file
+               self?.playAudioFile()
+
+               DispatchQueue.main.async {
+                   self?.isRecording = true
+                   self?.showToast(message: "Starting Recording")
+               }
+           }
+//        isRecording = true
+//        showToast(message: "Starting Recording")
     }
 
     
     @objc func stopRecording() {
-        isRecording = false
-        showToast(message: "Recording Stopped")
+        screenRecorder.stopRecording { [weak self] (previewController, error) in
+                guard let previewController = previewController else {
+                    print("Preview controller is not available.")
+                    return
+                }
+
+                DispatchQueue.main.async {
+                    self?.isRecording = false
+                    self?.showToast(message: "Recording Stopped")
+                    self?.present(previewController, animated: true, completion: nil)
+                    // Handle the preview here and upload the video
+                }
+            }
+//        isRecording = false
+//        showToast(message: "Recording Stopped")
     }
+    
+    func playAudioFile() {
+        guard let audioUrl = Bundle.main.url(forResource: "Tyla_-_Water", withExtension: "mp3") else {
+            print("Audio file not found")
+            return
+        }
+
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOf: audioUrl)
+            audioPlayer?.play()
+        } catch {
+            print("Couldn't play the audio file.")
+        }
+    }
+
 
 
     // The 3D character to display.

@@ -26,7 +26,7 @@ struct PoseFrame {
 }
 
 
-class ViewController: UIViewController, ARSessionDelegate {
+class ViewController: UIViewController, ARSessionDelegate, RPPreviewViewControllerDelegate {
     
     var recordingTimer: Timer?
     
@@ -112,10 +112,12 @@ class ViewController: UIViewController, ARSessionDelegate {
                     print("Preview controller is not available.")
                     return
                 }
-
+            previewController.previewControllerDelegate = self
                 DispatchQueue.main.async {
                     self?.isRecording = false
                     self?.showToast(message: "Recording Stopped")
+                    
+                    self?.audioPlayer?.stop()
                     self?.present(previewController, animated: true, completion: nil)
                     // Handle the preview here and upload the video
                 }
@@ -123,6 +125,10 @@ class ViewController: UIViewController, ARSessionDelegate {
 //        isRecording = false
 //        showToast(message: "Recording Stopped")
     }
+    
+    func previewControllerDidFinish(_ previewController: RPPreviewViewController) {
+            previewController.dismiss(animated: true, completion: nil)
+        }
     
     func playAudioFile() {
         guard let audioUrl = Bundle.main.url(forResource: "Tyla_-_Water", withExtension: "mp3") else {

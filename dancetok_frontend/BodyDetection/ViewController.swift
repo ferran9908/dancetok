@@ -26,7 +26,7 @@ struct PoseFrame {
 }
 
 
-class ViewController: UIViewController, ARSessionDelegate, RPPreviewViewControllerDelegate {
+class ViewController: UIViewController, ARSessionDelegate, RPPreviewViewControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     var recordingTimer: Timer?
     
@@ -50,7 +50,9 @@ class ViewController: UIViewController, ARSessionDelegate, RPPreviewViewControll
     @IBOutlet weak var checkScore: UIButton!
   
     @IBAction func computeScore(_ sender: Any) {
-        compareLastTwoRecordings()
+//        compareLastTwoRecordings()
+        selectVideo()
+        
     }
     @IBAction func recordButtonTapped(_ sender: Any) {
         if isRecording {
@@ -143,6 +145,63 @@ class ViewController: UIViewController, ARSessionDelegate, RPPreviewViewControll
             print("Couldn't play the audio file.")
         }
     }
+    
+    func selectVideo() {
+        let picker = UIImagePickerController()
+        picker.sourceType = .photoLibrary
+        picker.mediaTypes = ["public.movie"]
+        picker.delegate = self
+        present(picker, animated: true, completion: nil)
+    }
+
+    // UIImagePickerControllerDelegate Methods
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true, completion: nil)
+
+        guard let url = info[.mediaURL] as? URL else { return }
+        // Now you have the URL of the video
+        uploadVideo(url)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+           picker.dismiss(animated: true, completion: nil)
+       }
+
+    
+    func uploadVideo(_ videoURL: URL) {
+        let boundary = "Boundary-\(UUID().uuidString)"
+        var request = URLRequest(url: URL(string: "https://8a6a-68-65-175-125.ngrok-free.app/put-video")!)
+        request.httpMethod = "POST"
+        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+
+        var body = Data()
+
+        // Add the video data
+        let videoData = try? Data(contentsOf: videoURL)
+        body.append("--\(boundary)\r\n".data(using: .utf8)!)
+        body.append("Content-Disposition: form-data; name=\"video\"; filename=\"\(videoURL.lastPathComponent)\"\r\n".data(using: .utf8)!)
+        body.append("Content-Type: video/mp4\r\n\r\n".data(using: .utf8)!)
+        body.append(videoData!)
+        body.append("\r\n".data(using: .utf8)!)
+
+        // Close the body with the boundary
+        body.append("--\(boundary)--\r\n".data(using: .utf8)!)
+
+        request.httpBody = body
+
+        // Send the request
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                print("Error: \(error)")
+                return
+            }
+
+            // Handle the response here
+        }
+        task.resume()
+    }
+
+
 
 
 

@@ -17,19 +17,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dz7-k9-jr5">
-                                <rect key="frame" x="168" y="744" width="79" height="35"/>
+                                <rect key="frame" x="155" y="744" width="105" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Record"/>
+                                <buttonConfiguration key="configuration" style="filled" image="record.circle" catalog="system" title="Record"/>
                                 <connections>
                                     <action selector="recordButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Adl-mL-dcn"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="db1-zQ-lfF">
-                                <rect key="frame" x="269" y="744" width="69" height="35"/>
+                                <rect key="frame" x="268" y="743" width="99" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Score"/>
+                                <buttonConfiguration key="configuration" style="filled" image="scope" catalog="system" title="Score"/>
                                 <connections>
                                     <action selector="computeScore:" destination="BYZ-38-t0r" eventType="touchUpInside" id="sW3-th-WS0"/>
                                 </connections>
@@ -50,4 +50,8 @@
             <point key="canvasLocation" x="136.23188405797103" y="133.25892857142856"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="record.circle" catalog="system" width="128" height="123"/>
+        <image name="scope" catalog="system" width="128" height="124"/>
+    </resources>
 </document>
